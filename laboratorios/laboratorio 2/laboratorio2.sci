@@ -10,14 +10,12 @@
 function X = UN_sustitucion_regresiva(U,B)
     N = length(B)
     X = zeros( N, 1 )
-    k = N
-    while k > 0 then
+    for k = N: -1: 1
         suma = 0
         for j = k + 1: N
             suma = suma + U(k, j) * X(j)
         end
         X(k) = ( B(k) - suma ) / U(k, k)
-        k = k - 1
     end
 endfunction
 

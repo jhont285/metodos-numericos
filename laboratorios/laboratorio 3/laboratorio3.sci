@@ -1,5 +1,3 @@
-clc
-
 //////////////////////////////////////////////////////////////////////////
 // Función que permita realizar la interpolación mediante el método de  //
 // interpolación de Lagrange.                                           //
@@ -51,10 +49,8 @@ function fx = UN_Inter_Newton(X,Y,x)
     for i = 1: N // evaluamos el polinomio en el punto
         aux = R(i,i)
         mul = 1.0
-        j = i - 1
-        while j > 0 then
+        for j = i - 1: -1: 1
             mul = mul*( x - X(j) )
-            j = j - 1
         end
         fx = fx  + aux * mul
     end
