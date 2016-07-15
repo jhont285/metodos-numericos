@@ -52,12 +52,12 @@ endfunction
 function [U,C] = UN_eliminacion_gauss(A,B)
     R = [A B]
     N = length(B)
-    for i = 1: N
-        [ maxi, pos ]  = max( abs( R(i:N,i) ) )
-        if pos + i - 1 ~= i then
+    for i = 1: N - 1
+        [ maxi, pos ]  = max( abs( R(i + 1: N, i) ) )
+        if maxi > abs( R(i,i) ) then
             aux = R(i,:)
-            R(i,:) = R( pos + i - 1,:)
-            R( pos + i - 1, :) = aux
+            R(i,:) = R( pos + i,:)
+            R( pos + i, :) = aux
         end
         
         for j = i + 1: N

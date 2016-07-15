@@ -36,22 +36,22 @@ endfunction
 
 function fx = UN_Inter_Newton(X,Y,x)
     N = length( X )
-    R = zeros( N, N )
-    R(:,1) = Y';
-    dif = 1
-    for i = 2: N // creamos la matriz de diferencias divididas
-        for j = i: N
-            R(j,i) = ( R(j,i - 1) - R(j - 1,i - 1) )/ ( X(j) - X(j-dif) )
+    for i = 2: N  
+        aux = ( Y(i) - Y(i - 1) ) / ( X(i) - X(1) )
+        for j = i + 1: N
+            aux2 = ( Y(j) - Y(j - 1) )/ ( X(j) - X(j-i+1) )
+            Y(j-1) = aux
+            aux = aux2
         end
-        dif = dif + 1
+        Y(N) = aux
     end
     fx = 0
     for i = 1: N // evaluamos el polinomio en el punto
-        aux = R(i,i)
         mul = 1.0
         for j = i - 1: -1: 1
             mul = mul*( x - X(j) )
         end
-        fx = fx  + aux * mul
+        fx = fx  + Y(i) * mul
     end
 endfunction
+
